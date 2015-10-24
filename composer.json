@@ -1,0 +1,22 @@
+{
+    "name": "ghanem/rating",
+    "description": "Rating syetem for Laravel 5",
+    "keywords": ["rating", "Ratable", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "abdullah ghanem",
+            "email": "3bdullah.ghanem@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/support": "~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ghanem\\Rating\\": "src/"
+        }
+    }
+}
