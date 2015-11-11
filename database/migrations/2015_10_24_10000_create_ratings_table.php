@@ -10,7 +10,7 @@ class CreateRatingsTable extends Migration
         Schema::create('ratings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('rating');
-            $table->morphs('reviewable');
+            $table->morphs('ratingable');
             $table->morphs('author');
             $table->timestamps();
         });
