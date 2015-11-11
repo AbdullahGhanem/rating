@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/ghanem/rating.svg?branch=master)](https://travis-ci.org/ghanem/rating)
 [![Latest Stable Version](https://poser.pugx.org/ghanem/rating/v/stable.svg)](https://packagist.org/packages/ghanem/rating) [![License](https://poser.pugx.org/ghanem/rating/license.svg)](https://packagist.org/packages/ghanem/rating)
 
 [![Total Downloads](https://poser.pugx.org/ghanem/rating/downloads.svg)](https://packagist.org/packages/ghanem/rating)
