@@ -36,7 +36,7 @@ php artisan vendor:publish --provider="Ghanem\Rating\RatingServiceProvider" && p
 namespace App;
 
 use Ghanem\Rating\Contracts\Rating;
-use Ghanem\Rating\Traits\Rating as RatingTrait;
+use Ghanem\Rating\Traits\Ratingable as RatingTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model implements Rating
