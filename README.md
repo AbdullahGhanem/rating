@@ -50,9 +50,7 @@ $user = User::first();
 $post = Post::first();
 
 $rating = $post->rating([
-    'title' => 'Some title',
-    'body' => 'Some body',
-    'rating' => 5,
+    'rating' => 5
 ], $user);
 
 dd($rating);
@@ -61,9 +59,7 @@ dd($rating);
 ### Update a rating
 ```php
 $rating = $post->updateRating(1, [
-    'title' => 'new title',
-    'body' => 'new body',
-    'rating' => 3,
+    'rating' => 3
 ]);
 ```
 
