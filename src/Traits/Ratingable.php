@@ -2,7 +2,7 @@
 
 namespace Ghanem\Rating\Traits;
 
-use PackageBackup\Ratingable\Models\Rating;
+use Ghanem\Rating\Models\Rating;
 use Illuminate\Database\Eloquent\Model;
 
 trait Ratingable
