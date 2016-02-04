@@ -25,6 +25,17 @@ trait Ratingable
             ->selectRaw('AVG(rating) as averageRating')
             ->pluck('averageRating');
     }
+    
+    /**
+     *
+     * @return mix
+     */
+    public function countRatings()
+    {
+        return $this->ratings()
+            ->selectRaw('COUNT(rating) as countRatings')
+            ->pluck('countRatings');
+    }
 
     /**
      *
