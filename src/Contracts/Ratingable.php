@@ -16,6 +16,12 @@ interface Ratingable
      * @return mix
      */
     public function averageRating();
+    
+    /**
+     *
+     * @return mix
+     */
+    public function countRatings();
 
     /**
      *
