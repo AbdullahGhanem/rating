@@ -13,26 +13,26 @@ interface Ratingable
 
     /**
      *
-     * @return mix
+     * @return mixed
      */
     public function averageRating();
     
     /**
      *
-     * @return mix
+     * @return mixed
      */
     public function countRatings();
 
     /**
      *
-     * @return mix
+     * @return mixed
      */
     public function sumRating();
 
     /**
-     * @param $max
+     * @param $maxed
      *
-     * @return mix
+     * @return mixed
      */ 
     public function ratingPercent($max = 5);
     
