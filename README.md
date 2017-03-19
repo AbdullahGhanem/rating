@@ -71,13 +71,22 @@ $post->deleteRating(1);
 
 ### fetch the average rating:
 ````php
-$post->averageRating()
+$post->sumRating
+
+// $post->sumRating() also works for this.
+```` 
+
+### fetch the average rating:
+````php
+$post->avgRating
+
+// $post->avgRating() also works for this.
 ````
 
 ### fetch the rating percentage. 
 This is also how you enforce a maximum rating value.
 ````php
-$post->ratingPercent()
+$post->ratingPercent
 
 $post->ratingPercent(10)); // Ten star rating system
 // Note: The value passed in is treated as the maximum allowed value.

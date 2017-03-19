@@ -19,22 +19,10 @@ trait Ratingable
      *
      * @return mix
      */
-    public function averageRating()
+    public function avgRating()
     {
-        return $this->ratings()
-            ->selectRaw('AVG(rating) as averageRating')
-            ->pluck('averageRating');
-    }
-    
-    /**
-     *
-     * @return mix
-     */
-    public function countRatings()
-    {
-        return $this->ratings()
-            ->selectRaw('COUNT(rating) as countRatings')
-            ->pluck('countRatings');
+        return $this->ratings()->avg('rating');
+
     }
 
     /**
@@ -43,9 +31,7 @@ trait Ratingable
      */
     public function sumRating()
     {
-        return $this->ratings()
-            ->selectRaw('SUM(rating) as sumRating')
-            ->pluck('sumRating');
+        return $this->ratings()->sum('rating');
     }
 
     /**
@@ -55,9 +41,8 @@ trait Ratingable
      */ 
     public function ratingPercent($max = 5)
     {
-        $ratings = $this->ratings();
-        $quantity = $ratings->count();
-        $total = $ratings->selectRaw('SUM(rating) as total')->pluck('total');
+        $quantity = $this->ratings()->count();
+        $total = $this->sumRating();
         return ($quantity * $max) > 0 ? $total / (($quantity * $max) / 100) : 0;
     }
     
@@ -93,5 +78,20 @@ trait Ratingable
     public function deleteRating($id)
     {
         return (new Rating())->deleteRating($id);
+    }
+
+    public function getAvgRatingAttribute()
+    {
+        return $this->avgRating();
+    }
+
+    public function getratingPercentAttribute()
+    {
+        return $this->ratingPercent();
+    }
+
+    public function setSumRatingAttribute()
+    {
+        return $this->sumRating();
     }
 }

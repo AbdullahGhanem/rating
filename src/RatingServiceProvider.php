@@ -1,29 +1,46 @@
-<?php
+<?php 
 
-namespace Ghanem\Rating;
+namespace ghanem\Rating;
 
+use Ghanem\Rating\Commands\MigrationCommand;
 use Illuminate\Support\ServiceProvider;
 
-class RatingServiceProvider extends ServiceProvider 
+class RatingServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Indicates if loading of the provider is deferred.
      *
-     * @return void
+     * @var bool
+     */
+    protected $defer = false;
+    /**
+     * Bootstrap the application events.
      */
     public function boot()
     {
-	    $this->publishes([
-	        __DIR__.'/../database/migrations/' => database_path('migrations')
-	    ], 'migrations');
+        $this->commands('command.rateable.migration');
+        $this->app->bind('command.rateable.migration', function ($app) {
+            return new MigrationCommand();
+        }, TRUE);
     }
-    
     /**
-     * Register any application services.
+     * Register bindings in the container.
      *
      * @return void
      */
     public function register()
     {
+        //
+    }
+    /**
+     * Get the services provided.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            'command.rateable.migration',
+        ];
     }
 }

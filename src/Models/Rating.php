@@ -14,14 +14,14 @@ class Rating extends Model
     /**
      * @var array
      */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $fillable = ['rating', 'ratingable_id' , 'ratingable_type' , 'author_id', 'author_type'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function ratingable()
+    public function rateable()
     {
-        return $this->morphTo();
+        return $this->morphTo('');
     }
 
     /**
@@ -39,40 +39,4 @@ class Rating extends Model
      *
      * @return static
      */
-    public function createRating(Model $ratingable, $data, Model $author)
-    {
-        $rating = new static();
-        $rating->fill(array_merge($data, [
-            'author_id' => $author->id,
-            'author_type' => get_class($author),
-        ]));
-
-        $ratingable->ratings()->save($rating);
-
-        return $rating;
-    }
-
-    /**
-     * @param $id
-     * @param $data
-     *
-     * @return mixed
-     */
-    public function updateRating($id, $data)
-    {
-        $rating = static::find($id);
-        $rating->update($data);
-
-        return $rating;
-    }
-
-    /**
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function deleteRating($id)
-    {
-        return static::find($id)->delete();
-    }
 }
