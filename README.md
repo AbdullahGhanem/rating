@@ -69,7 +69,7 @@ $rating = $post->updateRating(1, [
 $post->deleteRating(1);
 ```
 
-### fetch the average rating:
+### fetch the Sum rating:
 ````php
 $post->sumRating
 
