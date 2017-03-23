@@ -13,6 +13,12 @@ First, pull in the package through Composer.
 ```js
 composer require ghanem/rating
 ```
+or add this in your project's composer.json file .
+````
+"require": {
+  "Ghanem/Rating": "1.*",
+}
+````
 
 And then include the service provider within `app/config/app.php`.
 
@@ -22,26 +28,33 @@ And then include the service provider within `app/config/app.php`.
 ];
 ```
 
-At last you need to publish and run the migration.
-```
-php artisan vendor:publish --provider="Ghanem\Rating\RatingServiceProvider" && php artisan migrate
-```
-
 -----
+## Getting started
+After the package is correctly installed, you need to generate the migration.
+````
+php artisan rateable:migration
+````
 
+It will generate the `<timestamp>_create_ratings_table.php` migration. You may now run it with the artisan migrate command:
+````
+php artisan migrate
+````
+
+After the migration, one new table will be present, `ratings`.
+
+## Usage
 ### Setup a Model
 ```php
 <?php
 
 namespace App;
 
-use Ghanem\Rating\Contracts\Rating;
-use Ghanem\Rating\Traits\Ratingable as RatingTrait;
+use Ghanem\Rating\Traits\Ratingable as Rating;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model implements Rating
 {
-    use RatingTrait;
+    use Rating;
 }
 ```
 
