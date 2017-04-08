@@ -32,7 +32,7 @@ And then include the service provider within `app/config/app.php`.
 ## Getting started
 After the package is correctly installed, you need to generate the migration.
 ````
-php artisan rateable:migration
+php artisan rating:migration
 ````
 
 It will generate the `<timestamp>_create_ratings_table.php` migration. You may now run it with the artisan migrate command:
