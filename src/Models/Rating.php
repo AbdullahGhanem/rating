@@ -53,6 +53,26 @@ class Rating extends Model
     }
 
     /**
+     * @param Model $ratingable
+     * @param $data
+     * @param Model $author
+     *
+     * @return static
+     */
+    public function createUniqueRating(Model $ratingable, $data, Model $author)
+    {
+        $rating = [
+            'author_id' => $author->id,
+            'author_type' => get_class($author),
+            "ratingable_id" => $ratingable->id,
+            "ratingable_type" => get_class($ratingable),
+        ];
+
+        Rating::updateOrCreate($rating, $data);
+        return $rating;
+    }
+
+    /**
      * @param $id
      * @param $data
      *

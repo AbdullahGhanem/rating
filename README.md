@@ -70,6 +70,18 @@ $rating = $post->rating([
 dd($rating);
 ```
 
+### Create or update a unique rating
+```php
+$user = User::first();
+$post = Post::first();
+
+$rating = $post->ratingUnique([
+    'rating' => 5
+], $user);
+
+dd($rating);
+```
+
 ### Update a rating
 ```php
 $rating = $post->updateRating(1, [

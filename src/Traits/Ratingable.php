@@ -78,6 +78,18 @@ trait Ratingable
     }
 
     /**
+     * @param $data
+     * @param Model      $author
+     * @param Model|null $parent
+     *
+     * @return static
+     */
+    public function ratingUnique($data, Model $author, Model $parent = null)
+    {
+        return (new Rating())->createUniqueRating($this, $data, $author);
+    }
+    
+    /**
      * @param $id
      * @param $data
      * @param Model|null $parent
@@ -118,7 +130,7 @@ trait Ratingable
     {
         return $this->countPositive();
     }
-    
+
     public function getCountNegativeAttribute()
     {
         return $this->countNegative();
