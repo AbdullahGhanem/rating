@@ -45,6 +45,25 @@ trait Ratingable
         $total = $this->sumRating();
         return ($quantity * $max) > 0 ? $total / (($quantity * $max) / 100) : 0;
     }
+
+    /**
+     *
+     * @return mix
+     */
+    public function countPositive()
+    {
+        return $this->ratings()->where('rating', '>', '0')->count();
+    }
+
+    /**
+     *
+     * @return mix
+     */
+    public function countNegative()
+    {
+        $quantity = $this->ratings('rating', '<', '0')->count();
+        return ("-$quantity");
+    }
     
     /**
      * @param $data
@@ -93,5 +112,15 @@ trait Ratingable
     public function getSumRatingAttribute()
     {
         return $this->sumRating();
+    }
+
+    public function getCountPositiveAttribute()
+    {
+        return $this->countPositive();
+    }
+    
+    public function getCountNegativeAttribute()
+    {
+        return $this->countNegative();
     }
 }
