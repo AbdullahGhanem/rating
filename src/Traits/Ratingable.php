@@ -61,7 +61,7 @@ trait Ratingable
      */
     public function countNegative()
     {
-        $quantity = $this->ratings('rating', '<', '0')->count();
+        $quantity = $this->ratings()->where('rating', '<', '0')->count();
         return ("-$quantity");
     }
     
