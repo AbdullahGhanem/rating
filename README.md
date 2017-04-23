@@ -105,3 +105,17 @@ $post->ratingPercent(10)); // Ten star rating system
 // Note: The value passed in is treated as the maximum allowed value.
 // This defaults to 5 so it can be called without passing a value as well.
 ````
+
+### Count positive rating:
+````php
+$post->countPositive
+
+// $post->countPositive() also works for this.
+````
+
+### Count negative rating:
+````php
+$post->countNegative
+
+// $post->countNegative() also works for this.
+````
