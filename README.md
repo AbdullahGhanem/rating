@@ -70,6 +70,18 @@ $rating = $post->rating([
 dd($rating);
 ```
 
+### Create or update a unique rating
+```php
+$user = User::first();
+$post = Post::first();
+
+$rating = $post->ratingUnique([
+    'rating' => 5
+], $user);
+
+dd($rating);
+```
+
 ### Update a rating
 ```php
 $rating = $post->updateRating(1, [
@@ -104,4 +116,18 @@ $post->ratingPercent
 $post->ratingPercent(10)); // Ten star rating system
 // Note: The value passed in is treated as the maximum allowed value.
 // This defaults to 5 so it can be called without passing a value as well.
+````
+
+### Count positive rating:
+````php
+$post->countPositive
+
+// $post->countPositive() also works for this.
+````
+
+### Count negative rating:
+````php
+$post->countNegative
+
+// $post->countNegative() also works for this.
 ````
