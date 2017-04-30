@@ -3,7 +3,7 @@
 [![Total Downloads](https://poser.pugx.org/ghanem/rating/downloads.svg)](https://packagist.org/packages/ghanem/rating)
 
 # Laravel Rating
-![https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-xaf1/t31.0-8/11056081_971241142949083_1060220626805694678_o.png](https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-xaf1/t31.0-8/11056081_971241142949083_1060220626805694678_o.png)
+![https://scontent-cai1-1.xx.fbcdn.net/v/t31.0-8/18192521_1536772739688541_5883708562629992092_o.jpg?oh=281577e64a1e326ff1989f047ab21df6&oe=59BAEBCA](https://scontent-cai1-1.xx.fbcdn.net/v/t31.0-8/18192521_1536772739688541_5883708562629992092_o.jpg?oh=281577e64a1e326ff1989f047ab21df6&oe=59BAEBCA)
 Rating system for laravel 5
 
 ## Installation
