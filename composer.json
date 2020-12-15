@@ -1,6 +1,6 @@
 {
     "name": "ghanem/rating",
-    "description": "Rating syetem for Laravel 5",
+    "description": "Rating syetem for Laravel",
     "keywords": ["rating", "Ratable", "laravel"],
     "license": "MIT",
     "authors": [
@@ -11,8 +11,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.5.9",
-        "illuminate/support": "~5.0"
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^5.0|^7.0|^8.0"
     },
     "autoload": {
         "psr-4": {
