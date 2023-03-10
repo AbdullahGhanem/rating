@@ -131,3 +131,8 @@ $post->countNegative
 
 // $post->countNegative() also works for this.
 ````
+
+
+## Sponsor
+
+[💚️ Become a Sponsor](https://github.com/sponsors/AbdullahGhanem)
