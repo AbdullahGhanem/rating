@@ -3,43 +3,25 @@
 namespace Ghanem\Rating\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Rating extends Model
 {
-    /**
-     * @var string
-     */
     protected $table = 'ratings';
 
-    /**
-     * @var array
-     */
-    protected $fillable = ['rating', 'ratingable_id' , 'ratingable_type' , 'author_id', 'author_type'];
+    protected $fillable = ['rating', 'ratingable_id', 'ratingable_type', 'author_id', 'author_type'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-     */
-    public function rateable()
+    public function ratingable(): MorphTo
     {
-        return $this->morphTo('');
+        return $this->morphTo();
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-     */
-    public function author()
+    public function author(): MorphTo
     {
         return $this->morphTo('author');
     }
 
-    /**
-     * @param Model $ratingable
-     * @param $data
-     * @param Model $author
-     *
-     * @return static
-     */
-    public function createRating(Model $ratingable, $data, Model $author)
+    public function createRating(Model $ratingable, array $data, Model $author): static
     {
         $rating = new static();
         $rating->fill(array_merge($data, [
@@ -52,47 +34,29 @@ class Rating extends Model
         return $rating;
     }
 
-    /**
-     * @param Model $ratingable
-     * @param $data
-     * @param Model $author
-     *
-     * @return static
-     */
-    public function createUniqueRating(Model $ratingable, $data, Model $author)
+    public function createUniqueRating(Model $ratingable, array $data, Model $author): static
     {
-        $rating = [
-            'author_id' => $author->id,
-            'author_type' => get_class($author),
-            "ratingable_id" => $ratingable->id,
-            "ratingable_type" => get_class($ratingable),
-        ];
-
-        Rating::updateOrCreate($rating, $data);
-        return $rating;
+        return static::updateOrCreate(
+            [
+                'author_id' => $author->id,
+                'author_type' => get_class($author),
+                'ratingable_id' => $ratingable->id,
+                'ratingable_type' => get_class($ratingable),
+            ],
+            $data
+        );
     }
 
-    /**
-     * @param $id
-     * @param $data
-     *
-     * @return mixed
-     */
-    public function updateRating($id, $data)
+    public function updateRating(int $id, array $data): static
     {
-        $rating = static::find($id);
+        $rating = static::findOrFail($id);
         $rating->update($data);
 
         return $rating;
     }
 
-    /**
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function deleteRating($id)
+    public function deleteRating(int $id): bool
     {
-        return static::find($id)->delete();
+        return static::findOrFail($id)->delete();
     }
 }

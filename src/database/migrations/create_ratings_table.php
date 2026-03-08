@@ -2,13 +2,14 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
-class CreateRatingsTable extends Migration
+return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('ratings', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('rating');
             $table->morphs('ratingable');
             $table->morphs('author');
@@ -16,8 +17,8 @@ class CreateRatingsTable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('ratings');
     }
-}
+};

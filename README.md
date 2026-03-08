@@ -1,64 +1,50 @@
-[![Latest Stable Version](https://poser.pugx.org/ghanem/rating/v/stable.svg)](https://packagist.org/packages/ghanem/rating) [![License](https://poser.pugx.org/ghanem/rating/license.svg)](https://packagist.org/packages/ghanem/rating)
-
-[![Total Downloads](https://poser.pugx.org/ghanem/rating/downloads.svg)](https://packagist.org/packages/ghanem/rating)
+[![Latest Stable Version](https://poser.pugx.org/ghanem/rating/v/stable.svg)](https://packagist.org/packages/ghanem/rating) [![License](https://poser.pugx.org/ghanem/rating/license.svg)](https://packagist.org/packages/ghanem/rating) [![Total Downloads](https://poser.pugx.org/ghanem/rating/downloads.svg)](https://packagist.org/packages/ghanem/rating)
 
 # Laravel Rating
-![https://scontent-cai1-1.xx.fbcdn.net/v/t31.0-8/18192521_1536772739688541_5883708562629992092_o.jpg?oh=281577e64a1e326ff1989f047ab21df6&oe=59BAEBCA](https://scontent-cai1-1.xx.fbcdn.net/v/t31.0-8/18192521_1536772739688541_5883708562629992092_o.jpg?oh=281577e64a1e326ff1989f047ab21df6&oe=59BAEBCA)
-Rating system for laravel 5
+
+Rating system for Laravel 8, 9, 10, 11 & 12.
 
 ## Installation
 
-First, pull in the package through Composer.
-
-```js
+```bash
 composer require ghanem/rating
 ```
-or add this in your project's composer.json file .
-````
-"require": {
-  "Ghanem/Rating": "1.*",
-}
-````
 
-And then include the service provider within `app/config/app.php`.
+The package uses Laravel's auto-discovery, so no need to manually register the service provider.
 
-```php
-'providers' => [
-    Ghanem\Rating\RatingServiceProvider::class
-];
+## Getting started
+
+Publish and run the migration:
+
+```bash
+php artisan vendor:publish --provider="Ghanem\Rating\RatingServiceProvider"
+php artisan migrate
 ```
 
------
-## Getting started
-After the package is correctly installed, you need to generate the migration.
-````
-php artisan rating:migration
-````
-
-It will generate the `<timestamp>_create_ratings_table.php` migration. You may now run it with the artisan migrate command:
-````
-php artisan migrate
-````
-
-After the migration, one new table will be present, `ratings`.
+This creates the `ratings` table.
 
 ## Usage
+
 ### Setup a Model
+
+Add the `Ratingable` trait to any model you want to be ratable:
+
 ```php
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Ghanem\Rating\Traits\Ratingable as Rating;
+use Ghanem\Rating\Traits\Ratingable;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model implements Rating
+class Post extends Model
 {
-    use Rating;
+    use Ratingable;
 }
 ```
 
 ### Create a rating
+
 ```php
 $user = User::first();
 $post = Post::first();
@@ -66,73 +52,73 @@ $post = Post::first();
 $rating = $post->rating([
     'rating' => 5
 ], $user);
-
-dd($rating);
 ```
 
 ### Create or update a unique rating
-```php
-$user = User::first();
-$post = Post::first();
 
+Only one rating per author per model:
+
+```php
 $rating = $post->ratingUnique([
     'rating' => 5
 ], $user);
-
-dd($rating);
 ```
 
 ### Update a rating
+
 ```php
-$rating = $post->updateRating(1, [
+$rating = $post->updateRating($ratingId, [
     'rating' => 3
 ]);
 ```
 
-### Delete a rating:
+### Delete a rating
+
 ```php
-$post->deleteRating(1);
+$post->deleteRating($ratingId);
 ```
 
-### fetch the Sum rating:
-````php
-$post->sumRating
+### Average rating
 
-// $post->sumRating() also works for this.
-```` 
+```php
+$post->avgRating    // attribute
+$post->avgRating()  // method
+```
 
-### fetch the average rating:
-````php
-$post->avgRating
+### Sum rating
 
-// $post->avgRating() also works for this.
-````
+```php
+$post->sumRating    // attribute
+$post->sumRating()  // method
+```
 
-### fetch the rating percentage. 
-This is also how you enforce a maximum rating value.
-````php
-$post->ratingPercent
+### Rating percentage
 
-$post->ratingPercent(10)); // Ten star rating system
-// Note: The value passed in is treated as the maximum allowed value.
-// This defaults to 5 so it can be called without passing a value as well.
-````
+```php
+$post->ratingPercent       // defaults to max of 5
+$post->ratingPercent(10)   // ten star rating system
+```
 
-### Count positive rating:
-````php
-$post->countPositive
+### Count positive ratings
 
-// $post->countPositive() also works for this.
-````
+```php
+$post->countPositive    // attribute
+$post->countPositive()  // method
+```
 
-### Count negative rating:
-````php
-$post->countNegative
+### Count negative ratings
 
-// $post->countNegative() also works for this.
-````
+```php
+$post->countNegative    // attribute
+$post->countNegative()  // method
+```
 
+## Testing
+
+```bash
+composer test
+```
 
 ## Sponsor
 
-[💚️ Become a Sponsor](https://github.com/sponsors/AbdullahGhanem)
+[Become a Sponsor](https://github.com/sponsors/AbdullahGhanem)

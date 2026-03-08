@@ -4,134 +4,84 @@ namespace Ghanem\Rating\Traits;
 
 use Ghanem\Rating\Models\Rating;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait Ratingable
 {
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function ratings()
+    public function ratings(): MorphMany
     {
         return $this->morphMany(Rating::class, 'ratingable');
     }
 
-    /**
-     *
-     * @return mix
-     */
-    public function avgRating()
+    public function avgRating(): float
     {
-        return $this->ratings()->avg('rating');
-
+        return (float) $this->ratings()->avg('rating');
     }
 
-    /**
-     *
-     * @return mix
-     */
-    public function sumRating()
+    public function sumRating(): float
     {
-        return $this->ratings()->sum('rating');
+        return (float) $this->ratings()->sum('rating');
     }
 
-    /**
-     * @param $max
-     *
-     * @return mix
-     */ 
-    public function ratingPercent($max = 5)
+    public function ratingPercent(int $max = 5): float
     {
         $quantity = $this->ratings()->count();
         $total = $this->sumRating();
+
         return ($quantity * $max) > 0 ? $total / (($quantity * $max) / 100) : 0;
     }
 
-    /**
-     *
-     * @return mix
-     */
-    public function countPositive()
+    public function countPositive(): int
     {
-        return $this->ratings()->where('rating', '>', '0')->count();
+        return $this->ratings()->where('rating', '>', 0)->count();
     }
 
-    /**
-     *
-     * @return mix
-     */
-    public function countNegative()
+    public function countNegative(): int
     {
-        $quantity = $this->ratings()->where('rating', '<', '0')->count();
-        return ("-$quantity");
+        return $this->ratings()->where('rating', '<', 0)->count();
     }
-    
-    /**
-     * @param $data
-     * @param Model      $author
-     * @param Model|null $parent
-     *
-     * @return static
-     */
-    public function rating($data, Model $author, Model $parent = null)
+
+    public function rating(array $data, Model $author): Rating
     {
         return (new Rating())->createRating($this, $data, $author);
     }
 
-    /**
-     * @param $data
-     * @param Model      $author
-     * @param Model|null $parent
-     *
-     * @return static
-     */
-    public function ratingUnique($data, Model $author, Model $parent = null)
+    public function ratingUnique(array $data, Model $author): Rating
     {
         return (new Rating())->createUniqueRating($this, $data, $author);
     }
-    
-    /**
-     * @param $id
-     * @param $data
-     * @param Model|null $parent
-     *
-     * @return mixed
-     */
-    public function updateRating($id, $data, Model $parent = null)
+
+    public function updateRating(int $id, array $data): Rating
     {
         return (new Rating())->updateRating($id, $data);
     }
 
-    /**
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function deleteRating($id)
+    public function deleteRating(int $id): bool
     {
         return (new Rating())->deleteRating($id);
     }
 
-    public function getAvgRatingAttribute()
+    public function getAvgRatingAttribute(): float
     {
         return $this->avgRating();
     }
 
-    public function getratingPercentAttribute()
+    public function getRatingPercentAttribute(): float
     {
         return $this->ratingPercent();
     }
 
-    public function getSumRatingAttribute()
+    public function getSumRatingAttribute(): float
     {
         return $this->sumRating();
     }
 
-    public function getCountPositiveAttribute()
+    public function getCountPositiveAttribute(): int
     {
         return $this->countPositive();
     }
 
-    public function getCountNegativeAttribute()
+    public function getCountNegativeAttribute(): int
     {
         return $this->countNegative();
     }
