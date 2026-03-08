@@ -11,6 +11,9 @@ return new class extends Migration
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
             $table->integer('rating');
+            $table->text('body')->nullable();
+            $table->string('type')->nullable()->index();
+            $table->float('weight')->nullable();
             $table->morphs('ratingable');
             $table->morphs('author');
             $table->timestamps();
